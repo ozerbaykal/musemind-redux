@@ -2,7 +2,30 @@ import { ThemeColors } from "../../theme/colors"
 import { ADDTASK } from "../types/tasksTypes"
 
 const initialState = {
-    tasks: [],
+    tasks: [
+        {
+            id: 1,
+            title: "dasboard dizayn",
+            date: "26 Aralık 2024",
+            status: "In Review"
+        },
+        {
+            id: 2,
+            title: "New tasks added",
+            date: "26 Aralık 2024",
+            status: "Complated"
+        },
+        {
+            id: 3,
+            title: "New tasks added",
+            date: "26 Aralık 2024",
+            status: "On Hold"
+        },
+
+
+
+
+    ],
     taskStatus: [
         {
             id: 1,

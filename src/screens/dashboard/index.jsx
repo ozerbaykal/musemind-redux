@@ -26,21 +26,21 @@ const Dashboard = () => {
             <TasksStatusCard key={item.id} item={item} />
           ))}
         </View>
-        <View>
+        <SectionTitle title="Project Statistics" />
+
+        <View style={{marginBottom: 10}}>
           <VictoryPie
-            innerRadius={40}
+            innerRadius={80}
             padAngle={2}
             data={[
-              {x: 'Cats', y: 35},
-              {x: 'Dogs', y: 40},
-              {x: 'Birds', y: 55},
-              {x: 'rabbit', y: 55},
+              {x: 'In Review', y: 35},
+              {x: 'In Progress', y: 40},
+              {x: 'Completed', y: 55},
+              {x: 'On Hold', y: 55},
             ]}
             theme={VictoryTheme.clean}
           />
         </View>
-
-        <SectionTitle title="Project Statistics" />
       </ScrollView>
     </View>
   );
