@@ -4,8 +4,9 @@ import FloatActionButton from '../../components/ui/floatActionButton';
 import {defaultScreenStyle} from '../../styles/defaultScreenStyle';
 import {useSelector} from 'react-redux';
 import TaskItem from '../../components/tasks/taskItem';
+import {ADDTASK} from '../../utils/routes';
 
-const Tasks = () => {
+const Tasks = ({navigation}) => {
   const {tasks} = useSelector(state => state.tasks);
   return (
     <View style={defaultScreenStyle.container}>
@@ -19,7 +20,7 @@ const Tasks = () => {
         renderItem={({item}) => <TaskItem item={item} />}
       />
 
-      <FloatActionButton />
+      <FloatActionButton onPress={() => navigation.navigate(ADDTASK)} />
     </View>
   );
 };
