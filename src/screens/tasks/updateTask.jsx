@@ -4,29 +4,29 @@ import {defaultScreenStyle} from '../../styles/defaultScreenStyle';
 import Button from '../../components/ui/button';
 import Input from '../../components/ui/input';
 import {useDispatch} from 'react-redux';
-import {addNewTask} from '../../store/actions/tasksActions';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {updateTask} from '../../store/actions/tasksActions';
+import {useNavigation} from '@react-navigation/native';
 import {TASKS} from '../../utils/routes';
 
-const AddTask = () => {
+const UpdateTask = ({route}) => {
   const task = route?.params.task; //güncellencek olan taskı aldık
+
   const [title, setTitle] = useState(task?.title || '');
   const [date, setDate] = useState(task?.date || '');
   const [status, setStatus] = useState(task?.status || '');
-  const route = useRoute();
 
   const navigation = useNavigation();
 
   const dispatch = useDispatch();
 
-  const saveTask = () => {
+  const handleUpdate = () => {
     const form = {
-      id: Date.now(),
+      id: task.id,
       title,
       date,
       status,
     };
-    dispatch(addNewTask(form));
+    dispatch(updateTask(form));
 
     Alert.alert('işlem başarılı');
 
@@ -54,11 +54,15 @@ const AddTask = () => {
         m
         onChangeText={value => setStatus(value)}
       />
-      <Button onPress={() => saveTask()} title="kaydet" status="success" />
+      <Button
+        onPress={() => handleUpdate()}
+        title="Güncelle"
+        status="On Hold"
+      />
     </View>
   );
 };
 
-export default AddTask;
+export default UpdateTask;
 
 const styles = StyleSheet.create({});

@@ -1,5 +1,5 @@
 import { Alert } from "react-native"
-import { ADDTASK, DELETETASK } from "../types/tasksTypes"
+import { ADDTASK, DELETETASK, UPDATETASK } from "../types/tasksTypes"
 
 
 
@@ -26,6 +26,19 @@ export const deleteTask = (id) => {
             }
         )
         Alert.alert("Task Silindi")
+    }
+
+}
+export const updateTask = (updatedtask) => {
+    return async dispatch => {
+        dispatch(
+            {
+                type: UPDATETASK,
+                payload: updatedtask
+
+            }
+        )
+        Alert.alert("Task Güncellendi")
     }
 
 }

@@ -1,16 +1,38 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {ThemeColors} from '../../theme/colors';
-import {Calendar, More} from 'iconsax-react-native';
+import {Calendar, Edit, More, Trash} from 'iconsax-react-native';
 import {setColor} from '../../utils/functions';
 import {useDispatch} from 'react-redux';
 import {deleteTask} from '../../store/actions/tasksActions';
+import {useNavigation} from '@react-navigation/native';
+import {ADDTASK, UPDATETASK} from '../../utils/routes';
 
 const TaskItem = ({item}) => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
+  //task' ı silecek fonksiyon
 
-  const deleteItem = id => {
-    dispatch(deleteTask(id));
+  const deleteItem = () => {
+    Alert.alert(
+      'Silme Onayı', // Başlık
+      'Silmek istediğinize emin misiniz?', // Mesaj
+      [
+        {
+          text: 'Hayır',
+          onPress: () => console.log('Silme işlemi iptal edildi'),
+          style: 'cancel', // İptal butonu
+        },
+        {
+          text: 'Evet',
+          onPress: () => {
+            // "Evet" seçildiğinde dispatch işlemini çağır
+            dispatch(deleteTask(item.id));
+          },
+        },
+      ],
+      {cancelable: false}, // Kullanıcı boş bir yere dokunarak iptal edemesin
+    );
   };
 
   return (
@@ -41,9 +63,16 @@ const TaskItem = ({item}) => {
         </View>
       </View>
 
-      <TouchableOpacity onPress={() => deleteItem(item.id)}>
-        <More variant="Outline" size={25} />
-      </TouchableOpacity>
+      <View style={{flexDirection: 'row', gap: 10}}>
+        <TouchableOpacity onPress={deleteItem}>
+          <Trash variant="Outline" size={25} />
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={() => navigation.navigate(UPDATETASK, {task: item})}>
+          <Edit variant="Outline" size={25} />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
