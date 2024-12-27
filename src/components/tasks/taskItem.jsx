@@ -1,10 +1,18 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {ThemeColors} from '../../theme/colors';
 import {Calendar, More} from 'iconsax-react-native';
 import {setColor} from '../../utils/functions';
+import {useDispatch} from 'react-redux';
+import {deleteTask} from '../../store/actions/tasksActions';
 
 const TaskItem = ({item}) => {
+  const dispatch = useDispatch();
+
+  const deleteItem = id => {
+    dispatch(deleteTask(id));
+  };
+
   return (
     <View style={styles.container}>
       <View style={{justifyContent: 'space-around'}}>
@@ -18,6 +26,7 @@ const TaskItem = ({item}) => {
               justifyContent: 'center',
               alignItems: 'center',
               paddingVertical: 8,
+              padding: 10,
 
               borderRadius: 100,
             }}>
@@ -32,9 +41,9 @@ const TaskItem = ({item}) => {
         </View>
       </View>
 
-      <View>
+      <TouchableOpacity onPress={() => deleteItem(item.id)}>
         <More variant="Outline" size={25} />
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };

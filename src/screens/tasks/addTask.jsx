@@ -18,6 +18,7 @@ const AddTask = () => {
 
   const saveTask = () => {
     const form = {
+      id: Date.now(),
       title,
       date,
       status,
